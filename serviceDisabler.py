@@ -26,6 +26,6 @@ def main():
     services = get_services()
     service = select_service(services)
     print(service, "is being disabled")
-    disable_service()
+    disable_service(service)
 
 main()
