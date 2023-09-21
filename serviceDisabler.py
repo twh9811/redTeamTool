@@ -4,7 +4,8 @@ import sys
 import psutil
 
 def main():
-    output = subprocess.Popen(['ps', '-A'])
+    cmd = 'systemctl --type=service --state=running'
+    output = subprocess.Popen(cmd)
     print(output)
 
 main()
