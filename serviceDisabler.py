@@ -8,10 +8,12 @@ def get_services():
     return output
 
 def select_service(list_of_services_string):
-    total_services = len(list_of_services_string)
-    # Selects service randomly by line. Exclude 0 to skip headers
-    service_number = random.randrange(1, total_services)
     service_list = list_of_services_string.split()
+    # Sorts through all strings for services
+    service_list = [service for service in service_list if ".service" in service]
+    # Select service randomly
+    total_services = len(service_list)
+    service_number = random.randrange(0, total_services)
     selected_service_string = service_list[service_number]
     service_parts = selected_service_string.split()
     service_name = service_parts[0]
