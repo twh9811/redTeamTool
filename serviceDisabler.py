@@ -18,10 +18,14 @@ def select_service(list_of_services_string):
     service_parts = selected_service_string.split()
     service_name = service_parts[0]
     return service_name
+
+def disable_service(service_name):
+    subprocess.Popen(["systemctl", "disable", service_name], stdout=subprocess.PIPE)
     
 def main():
     services = get_services()
     service = select_service(services)
-    print(service)
+    print(service, "is being disabled")
+    disable_service()
 
 main()
