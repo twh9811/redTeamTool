@@ -21,7 +21,7 @@ def select_service(list_of_services_string):
 
 def disable_service(service_name):
     process = subprocess.Popen(["systemctl", "disable", service_name])
-    process.Popen.communicate()
+    process.communicate()
     
 def main():
     services = get_services()
