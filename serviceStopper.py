@@ -12,6 +12,8 @@ import subprocess
 import random
 import time
 
+# Put services you don't want touched in here (with .service at the end)
+DONT_TOUCH = []
 
 def get_services():
     """
@@ -58,8 +60,10 @@ def main():
             continue
         # Randomly select a service from the service list
         service = select_service(services)
-        # Disable the service
-        disable_service(service)
+        # Adds functionality to ignore certain services to avoid bricking
+        if(service not in DONT_TOUCH):
+            # Disable the service
+            disable_service(service)
         # Wait to avoid suspicion
         wait(300)
 
