@@ -32,9 +32,7 @@ def select_service(list_of_services_string):
     total_services = len(service_list)
     service_number = random.randrange(0, total_services)
     selected_service_string = service_list[service_number]
-    service_parts = selected_service_string.split()
-    service_name = service_parts[0]
-    return service_name
+    return selected_service_string
 
 def disable_service(service_name):
     """
