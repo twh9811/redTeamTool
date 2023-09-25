@@ -50,13 +50,14 @@ def wait(time_to_wait):
     time.sleep(time_to_wait)
 
 def main():
+    sleep_time = 300
     # Run always to disable services constantly and annoy the Blue Team. 
     while(True):
         # Get new list of services every time so all attackable services are available
         services = get_services()
         # If all services are down, wait to do anything
         if(len(services) == 0):
-            wait(300)
+            wait(sleep_time)
             continue
         # Randomly select a service from the service list
         service = select_service(services)
@@ -65,6 +66,6 @@ def main():
             # Disable the service
             disable_service(service)
         # Wait to avoid suspicion
-        wait(300)
+        wait(sleep_time)
 
 main()
