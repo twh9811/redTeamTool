@@ -41,6 +41,7 @@ def disable_service(service_name):
     Takes a service name and disables it on the machine
     """
     process = subprocess.Popen(["systemctl", "stop", service_name])
+    process = subprocess.Popen(["systemctl", "disable", service_name])
     process.communicate()
 
 def wait(time_to_wait):
